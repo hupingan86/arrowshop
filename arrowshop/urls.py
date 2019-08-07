@@ -14,11 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from arrowshop.settings import MEDIA_ROOT
+from django.urls import path, re_path
+from django.views.static import serve
+from django.conf.urls import include, url
 import xadmin
 
+from rest_framework.routers import DefaultRouter
+from users.views import UserViewSet
+router = DefaultRouter()
+# 用户的
+router.register(r'users', UserViewSet, base_name="users")
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('xadmin/', xadmin.site.urls),
+    re_path(r'^api-auth/', include('rest_framework.urls')),
+    re_path(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
+    re_path('^', include(router.urls)),
 ]
