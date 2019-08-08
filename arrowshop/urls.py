@@ -22,10 +22,15 @@ import xadmin
 
 from rest_framework.routers import DefaultRouter
 from users.views import UserViewSet
+from goods.views import GoodsListViewSet, CategoryViewSet
+
 router = DefaultRouter()
 # 用户的
 router.register(r'users', UserViewSet, base_name="users")
-
+# 商品的
+router.register(r'goods', GoodsListViewSet, base_name="goods")
+# 分类
+router.register(r'category', CategoryViewSet, base_name="category")
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('xadmin/', xadmin.site.urls),

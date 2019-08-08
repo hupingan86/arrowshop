@@ -42,10 +42,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users',
+    'DjangoUeditor',
+    'users.apps.UsersConfig',
+    'goods',
     'xadmin',
     'crispy_forms',
     'rest_framework',
+    'rest_framework.authtoken',
+    'django_filters',
+    'corsheaders',  # 处理跨域问题
 
 ]
 
@@ -137,3 +142,20 @@ USE_TZ = False
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ],
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',  # 限速设置
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '1000/day',
+        'user': '20/minute'     # 设置访问次数， second, minute, hour or day as the throttle period.
+    }
+}
