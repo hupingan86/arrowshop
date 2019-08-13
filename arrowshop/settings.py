@@ -45,16 +45,19 @@ INSTALLED_APPS = [
     'DjangoUeditor',
     'users.apps.UsersConfig',
     'goods',
+    'user_operation',
     'xadmin',
     'crispy_forms',
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
     'corsheaders',  # 处理跨域问题
+    'social_django',
 
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',   # 处理跨域问题
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -64,7 +67,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = True     # 处理跨域问题
 ROOT_URLCONF = 'arrowshop.urls'
 
 TEMPLATES = [
