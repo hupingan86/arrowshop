@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from goods.models import Goods, GoodsCategory
+from goods.models import Goods, GoodsCategory, GoodsImage
 from django.db.models import Q
 
 
@@ -35,8 +35,15 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class GoodsImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GoodsImage
+        fields = ("image",)
+
+
 class GoodsSerializer(serializers.ModelSerializer):
     category = CategorySerializer()   # 商品序列化
+    images = GoodsImageSerializer(many=True)
 
     class Meta:
         model = Goods

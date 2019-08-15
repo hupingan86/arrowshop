@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 import sys
-
+import datetime
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE_DIR)
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'DjangoUeditor',
     'users.apps.UsersConfig',
     'goods',
+    'trade',
     'user_operation',
     'xadmin',
     'crispy_forms',
@@ -144,6 +145,12 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 
+MEDIA_URL = "/media/"
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 REST_FRAMEWORK = {
@@ -161,4 +168,13 @@ REST_FRAMEWORK = {
         'anon': '1000/day',
         'user': '20/minute'     # 设置访问次数， second, minute, hour or day as the throttle period.
     }
+}
+
+REST_FRAMEWORK_EXTENSIONS = {
+    'DEFAULT_CACHE_RESPONSE_TIMEOUT': 50
+}
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),   # 设置登录有效时间
+    'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }

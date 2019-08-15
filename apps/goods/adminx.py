@@ -12,8 +12,8 @@
 @time: 2017/7/4 17:04
 """
 import xadmin
-from .models import Goods, GoodsCategory, GoodsCategoryBrand
-# GoodsImage, GoodsCategoryBrand, Banner, IndexAd, HotSearchWords
+from .models import Goods, GoodsCategory, GoodsCategoryBrand, GoodsImage
+# , GoodsCategoryBrand, Banner, IndexAd, HotSearchWords
 
 
 class GoodsAdmin(object):
@@ -25,13 +25,13 @@ class GoodsAdmin(object):
                    "shop_price",  "add_time", "category__name"]
     style_fields = {"goods_desc": "ueditor"}
 
-    # class GoodsImagesInline(object):
-    #     model = GoodsImage
-    #     exclude = ["add_time"]
-    #     extra = 1
-    #     style = 'tab'
+    class GoodsImagesInline(object):
+        model = GoodsImage
+        exclude = ["add_time"]
+        extra = 1
+        style = 'tab'
 
-    # inlines = [GoodsImagesInline]
+    inlines = [GoodsImagesInline]
 
 
 class GoodsCategoryAdmin(object):

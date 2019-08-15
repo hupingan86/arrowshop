@@ -21,9 +21,13 @@ from django.conf.urls import include, url
 import xadmin
 
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken import views
 from users.views import UserViewSet
 from goods.views import GoodsListViewSet, CategoryViewSet, IndexCategoryViewSet
 from user_operation.views import AddressViewSet
+from trade.views import ShoppingCartViewSet
+
+from rest_framework_jwt.views import obtain_jwt_token
 
 router = DefaultRouter()
 # 用户的
@@ -38,10 +42,14 @@ router.register(r'address', AddressViewSet, base_name="address")
 # 首页分类商品url
 router.register(r'indexgoods', IndexCategoryViewSet, base_name="indexgoods")
 
+# 购物车url
+router.register(r'shopcarts', ShoppingCartViewSet, base_name="shopcarts")
+
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('xadmin/', xadmin.site.urls),
     re_path(r'^api-auth/', include('rest_framework.urls')),
     re_path(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
     re_path('^', include(router.urls)),
+    re_path('^login/', obtain_jwt_token),  # 登录接口
 ]
