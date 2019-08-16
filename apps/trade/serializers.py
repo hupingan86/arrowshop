@@ -1,7 +1,9 @@
 from rest_framework import serializers
-from .models import ShoppingCart
+from .models import ShoppingCart, OrderInfo, OrderGoods
 from goods.models import Goods
 from goods.serializers import GoodsSerializer
+from random import Random
+import time
 
 
 # 购物车列表详情
@@ -51,4 +53,34 @@ class ShopCartSerializer(serializers.Serializer):  # 要用Serializer方法
         return instance
 
 
+class OrderDetailSerializer(serializers.ModelSerializer):
 
+    class Meta:
+        model = OrderInfo
+        fields = "__all__"
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(
+        default=serializers.CurrentUserDefault()
+    )
+
+    order_sn = serializers.CharField(read_only=True)
+    trade_no = serializers.CharField(read_only=True)   # 交易单号,生成的数据
+    pay_status = serializers.CharField(read_only=True)  # 订单状态只能读
+    pay_time = serializers.DateTimeField(read_only=True)
+
+    def generate_order_sn(self):
+        random_ins = Random()
+        order_sn = "{time_str}{userid}{ranstr}".format(time_str=time.strftime("%Y%m%d%H%M%S"),
+                                                       userid=self.context["request"].user.id,
+                                                       ranstr=random_ins.randint(10, 99))
+        return order_sn
+
+    def validate(self, attrs):
+        attrs["order_sn"] = self.generate_order_sn()
+        return attrs
+
+    class Meta:
+        model = OrderInfo
+        fields = "__all__"

@@ -25,7 +25,7 @@ from rest_framework.authtoken import views
 from users.views import UserViewSet
 from goods.views import GoodsListViewSet, CategoryViewSet, IndexCategoryViewSet
 from user_operation.views import AddressViewSet
-from trade.views import ShoppingCartViewSet
+from trade.views import ShoppingCartViewSet, OrderViewSet
 
 from rest_framework_jwt.views import obtain_jwt_token
 
@@ -44,6 +44,9 @@ router.register(r'indexgoods', IndexCategoryViewSet, base_name="indexgoods")
 
 # 购物车url
 router.register(r'shopcarts', ShoppingCartViewSet, base_name="shopcarts")
+
+# 订单url
+router.register(r'orders', OrderViewSet, base_name="orders")
 
 urlpatterns = [
     # path('admin/', admin.site.urls),

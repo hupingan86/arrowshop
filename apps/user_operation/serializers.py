@@ -7,8 +7,8 @@ class AddressSerializers(serializers.ModelSerializer):
         default=serializers.CurrentUserDefault()
     )
 
-    add_time = serializers.DateTimeField(read_only=True,format='%Y-%m-%d %H:%M:%S')
+    add_time = serializers.DateTimeField(read_only=True, format='%Y-%m-%d %H:%M:%S')
 
     class Meta:
         model = UserAddress
-        fields = ("user", "province", "city", "district", "street","address", "phone", "add_time")
+        fields = ("id", "user", "province", "city", "district", "street","address", "phone", "add_time")

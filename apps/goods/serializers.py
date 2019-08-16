@@ -61,6 +61,17 @@ class IndexCategorySerializer(serializers.ModelSerializer):
         goods_serializer = GoodsSerializer(all_goods, many=True, context={'request': self.context['request']})
         return goods_serializer.data
 
+    def get_ad_goods(self, obj):
+        pass
+
+        # goods_json = {}
+        # ad_goods = IndexAd.objects.filter(category_id=obj.id)
+        # if ad_goods:
+        #     good_ins = ad_goods[0].goods
+        #     # context 上下文加上域名
+        #     goods_json = GoodsSerializer(good_ins, many=False, context={'request': self.context['request']}).data
+        # return goods_json
+
     class Meta:
         model = GoodsCategory
         fields = "__all__"
