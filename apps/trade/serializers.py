@@ -53,7 +53,17 @@ class ShopCartSerializer(serializers.Serializer):  # 要用Serializer方法
         return instance
 
 
+class OrderGoodsSerializer(serializers.ModelSerializer):
+    goods = GoodsSerializer(many=False)  # 订单详情
+
+    class Meta:
+        model = OrderGoods
+        fields = "__all__"
+
+
 class OrderDetailSerializer(serializers.ModelSerializer):
+
+    goods = OrderGoodsSerializer(many=True)
 
     class Meta:
         model = OrderInfo

@@ -12,11 +12,7 @@
 @time: 2017/7/4 17:04
 """
 import xadmin
-from .models import UserAddress, UserIntegrate
-
-
-class UserIntegrateAdmin(object):
-    list_display = ['user', 'integrate_time', 'source', 'expiry_day']
+from .models import UserAddress, UserIntegrate, UserMessage
 
 
 class UserFavAdmin(object):
@@ -24,13 +20,17 @@ class UserFavAdmin(object):
 
 
 class UserLeavingMessageAdmin(object):
-    list_display = ['user', 'message_type', "message", "add_time"]
+    list_display = ['user', 'message_type', "message", "add_time", "file"]
 
 
 class UserAddressAdmin(object):
     list_display = ["phone", "district", "address"]
 
+
+class UserIntegrateAdmin(object):
+    list_display = ["integrate_time", "source", "expiry_day"]
+
 #xadmin.site.register(UserFav, UserFavAdmin)
 xadmin.site.register(UserAddress, UserAddressAdmin)
+xadmin.site.register(UserMessage, UserLeavingMessageAdmin)
 xadmin.site.register(UserIntegrate, UserIntegrateAdmin)
-#xadmin.site.register(UserLeavingMessage, UserLeavingMessageAdmin)

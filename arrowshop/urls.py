@@ -24,7 +24,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
 from users.views import UserViewSet
 from goods.views import GoodsListViewSet, CategoryViewSet, IndexCategoryViewSet
-from user_operation.views import AddressViewSet
+from user_operation.views import AddressViewSet, MessageViewSet, UserIntegrateViewSet
 from trade.views import ShoppingCartViewSet, OrderViewSet
 
 from rest_framework_jwt.views import obtain_jwt_token
@@ -32,6 +32,12 @@ from rest_framework_jwt.views import obtain_jwt_token
 router = DefaultRouter()
 # 用户的
 router.register(r'users', UserViewSet, base_name="users")
+
+# 留言的
+router.register(r'messages', MessageViewSet, base_name="messages")
+
+# 积分的
+router.register(r'integrate', UserIntegrateViewSet, base_name="integrate")
 # 商品的情况
 router.register(r'goods', GoodsListViewSet, base_name="goods")
 # 商品分类
